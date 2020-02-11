@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Parser and generator for *.ruleset files in Visual Studio.</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/sunamo/SunamoRuleset</RepositoryUrl>
+    <PackageIcon>SunamoRuleset.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageReleaseNotes>Initial package</PackageReleaseNotes>
+    <Authors>sunamo</Authors>
+    <Copyright>www.sunamo.cz</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\sunamo\SunamoCode\SunamoCode.csproj" />
+    <ProjectReference Include="..\..\sunamo\sunamo\sunamo.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SunamoRuleset.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

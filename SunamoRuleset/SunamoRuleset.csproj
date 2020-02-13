@@ -11,6 +11,7 @@
     <PackageReleaseNotes>Initial package</PackageReleaseNotes>
     <Authors>sunamo</Authors>
     <Copyright>www.sunamo.cz</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>

@@ -128,4 +128,3 @@ public class RulesetManager
         TF.WriteAllText(pathRuleset, xg.ToString());
     }
 }
-

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using desktop;
+using SunamoCode;
 
 public class RulesetManager
 {

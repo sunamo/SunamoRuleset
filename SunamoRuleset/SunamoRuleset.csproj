@@ -1,12 +1,9 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-   <TargetFramework>net48</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Parser and generator for *.ruleset files in Visual Studio.</Description>
-    <PackageProjectUrl>
-    </PackageProjectUrl>
+    <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/sunamo/SunamoRuleset</RepositoryUrl>
     <PackageIcon>SunamoRuleset.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>
@@ -22,8 +19,7 @@
   <ItemGroup>
     <None Include="SunamoRuleset.png">
       <Pack>True</Pack>
-      <PackagePath>
-      </PackagePath>
+      <PackagePath></PackagePath>
     </None>
   </ItemGroup>
 </Project>

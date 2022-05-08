@@ -99,7 +99,7 @@ public class RulesetManager
                 // Is calling only in save, return null
                 return null;
             default:
-                ThrowExceptions.NotImplementedCase(Exc.GetStackTrace(),type, Exc.CallingMethod(), rtype);
+                ThrowEx.NotImplementedCase( rtype);
                 break;
         }
         return null;

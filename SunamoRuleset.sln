@@ -5,27 +5,27 @@ VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoRuleset", "SunamoRuleset\SunamoRuleset.csproj", "{A81432E9-A2E0-45C3-85F2-57BA990EE62A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xlf", "..\sunamo\Xlf\Xlf.csproj", "{00B76D22-B82F-43FD-AC48-4B1F56E6910F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xlf", "..\..\sunamo\Xlf\Xlf.csproj", "{00B76D22-B82F-43FD-AC48-4B1F56E6910F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoCode", "..\sunamo\SunamoCode\SunamoCode.csproj", "{79B90442-CF86-41B8-86CC-8DA34A1A032D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoCode", "..\..\sunamo\SunamoCode\SunamoCode.csproj", "{79B90442-CF86-41B8-86CC-8DA34A1A032D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sunamo", "..\sunamo\sunamo\sunamo.csproj", "{B131EBCD-89D1-4647-A832-54AC58DD815A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sunamo", "..\..\sunamo\sunamo\sunamo.csproj", "{B131EBCD-89D1-4647-A832-54AC58DD815A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extensions", "..\sunamo\extensions\extensions.csproj", "{39E13FEB-502F-4CBF-BF73-8F4045F09F12}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extensions", "..\..\sunamo\extensions\extensions.csproj", "{39E13FEB-502F-4CBF-BF73-8F4045F09F12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoCSharp", "..\sunamo\SunamoCSharp\SunamoCSharp.csproj", "{0A1F2E90-B22F-4254-9295-214E2E768D4E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoCSharp", "..\..\sunamo\SunamoCSharp\SunamoCSharp.csproj", "{0A1F2E90-B22F-4254-9295-214E2E768D4E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "duo", "..\sunamo\duo\duo.csproj", "{F63924CB-EB12-4DB3-B529-87A6143521C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "duo", "..\..\sunamo\duo\duo.csproj", "{F63924CB-EB12-4DB3-B529-87A6143521C1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "..\sunamo\Resources\Resources.csproj", "{C76C9753-C148-4535-85AD-5824932F5FA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Resources", "..\..\sunamo\Resources\Resources.csproj", "{C76C9753-C148-4535-85AD-5824932F5FA7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinSec", "..\CredentialsWithoutDep\WinSec\WinSec.csproj", "{25A76579-C93C-4342-A926-D012EE4F642A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinSec", "..\..\CredentialsWithoutDep\WinSec\WinSec.csproj", "{25A76579-C93C-4342-A926-D012EE4F642A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmdev.ResX", "..\sunamo.notmine\fmdev.ResX\fmdev.ResX.csproj", "{4E96CFD9-4C8F-4062-8766-9FE3AF4DD928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmdev.ResX", "..\..\sunamo.notmine\fmdev.ResX\fmdev.ResX.csproj", "{4E96CFD9-4C8F-4062-8766-9FE3AF4DD928}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XliffParser", "..\sunamo.notmine\XliffParser\XliffParser.csproj", "{7A844845-140B-48C7-BE51-45D6ED44E3CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XliffParser", "..\..\sunamo.notmine\XliffParser\XliffParser.csproj", "{7A844845-140B-48C7-BE51-45D6ED44E3CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoExceptions", "..\sunamoWithoutDep\SunamoExceptions\SunamoExceptions.csproj", "{F298459B-C78F-4F53-A3AF-EE8362E4F506}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoExceptions", "..\..\sunamoWithoutDep\SunamoExceptions\SunamoExceptions.csproj", "{F298459B-C78F-4F53-A3AF-EE8362E4F506}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

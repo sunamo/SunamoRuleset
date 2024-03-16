@@ -5,7 +5,7 @@ public class RulesetValues
     /// https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
     /// https://docs.google.com/spreadsheets/d/1BeaQ1S41-iMJ5le7oO6V4r9Y9iSg2Du47_XVA37GPPk/edit#gid=0
     /// </summary>
-    public static readonly List<string> rulesMicrosoftCodeQuality = SH.GetLines(@"CA1000
+    public static readonly List<string> rulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
 CA1001
 CA1003
 CA1008
@@ -102,7 +102,7 @@ CA2246");
     /// https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
     /// https://docs.google.com/spreadsheets/d/1by2sc_hiYWbJ_2N5v1ZBZHebkIRPCCYFydRu5Zi7bag/edit#gid=0
     /// </summary>
-    public static readonly List<string> rulesMicrosoftNetCoreAnalyzers = SH.GetLines(@"CA1303
+    public static readonly List<string> rulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
 CA1304
 CA1305
 CA1307

@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xlf", "..\..\sunamo\Xlf\Xlf
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SunamoCode", "..\..\sunamo\SunamoCode\SunamoCode.csproj", "{79B90442-CF86-41B8-86CC-8DA34A1A032D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sunamo", "..\..\sunamo\sunamo\sunamo.csproj", "{B131EBCD-89D1-4647-A832-54AC58DD815A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "sunamo", "..\..\sunamo\SunamoShared\SunamoShared.csproj", "{B131EBCD-89D1-4647-A832-54AC58DD815A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "extensions", "..\..\sunamo\extensions\extensions.csproj", "{39E13FEB-502F-4CBF-BF73-8F4045F09F12}"
 EndProject

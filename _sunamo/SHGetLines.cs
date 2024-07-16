@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SunamoRuleset._sunamo;
+
 internal class SHGetLines
 {
     internal static List<string> GetLines(string p)

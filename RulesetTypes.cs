@@ -1,5 +1,5 @@
-
 namespace SunamoRuleset;
+
 public enum RulesetTypes
 {
     /// <summary>

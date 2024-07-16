@@ -1,5 +1,5 @@
-
 namespace SunamoRuleset;
+
 public class RulesetConsts
 {
     public const string Name = "Name";

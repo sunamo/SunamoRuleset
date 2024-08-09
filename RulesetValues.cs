@@ -1,13 +1,14 @@
+using SunamoRuleset._sunamo;
 
 namespace SunamoRuleset;
-using SunamoRuleset._sunamo;
 
 public class RulesetValues
 {
     #region rulesMicrosoftCodeQuality
+
     /// <summary>
-    /// https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
-    /// https://docs.google.com/spreadsheets/d/1BeaQ1S41-iMJ5le7oO6V4r9Y9iSg2Du47_XVA37GPPk/edit#gid=0
+    ///     https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
+    ///     https://docs.google.com/spreadsheets/d/1BeaQ1S41-iMJ5le7oO6V4r9Y9iSg2Du47_XVA37GPPk/edit#gid=0
     /// </summary>
     public static readonly List<string> rulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
 CA1001
@@ -99,12 +100,14 @@ CA2234
 CA2244
 CA2245
 CA2246");
+
     #endregion
 
     #region rulesMicrosoftNetCoreAnalyzers
+
     /// <summary>
-    /// https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
-    /// https://docs.google.com/spreadsheets/d/1by2sc_hiYWbJ_2N5v1ZBZHebkIRPCCYFydRu5Zi7bag/edit#gid=0
+    ///     https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
+    ///     https://docs.google.com/spreadsheets/d/1by2sc_hiYWbJ_2N5v1ZBZHebkIRPCCYFydRu5Zi7bag/edit#gid=0
     /// </summary>
     public static readonly List<string> rulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
 CA1304
@@ -218,5 +221,6 @@ CA5400
 CA5401
 CA5402
 CA5403");
+
     #endregion
 }

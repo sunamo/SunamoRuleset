@@ -3,15 +3,17 @@ namespace SunamoRuleset;
 public enum RulesetTypes
 {
     /// <summary>
-    /// codesMicrosoftCodeQualityRules
+    ///     codesMicrosoftCodeQualityRules
     /// </summary>
     MicrosoftCodeQualityAnalyzers,
+
     /// <summary>
-    /// rulesMicrosoftNetCoreAnalyzers
+    ///     rulesMicrosoftNetCoreAnalyzers
     /// </summary>
     MicrosoftNetCoreAnalyzers,
+
     /// <summary>
-    /// CS*
+    ///     CS*
     /// </summary>
     MicrosoftCodeAnalysisCSharp,
     None

@@ -10,5 +10,4 @@ public class RulesetConsts
     public const string Action = "Action";
     public const string AnalyzerId = "AnalyzerId";
     public const string RuleNamespace = "RuleNamespace";
-
 }

@@ -1,7 +1,7 @@
+using System.IO;
+using SunamoRuleset._sunamo;
 
 namespace SunamoRuleset;
-using SunamoRuleset._sunamo;
-using System.IO;
 
 public class RulesetManager
 {
@@ -10,8 +10,8 @@ public class RulesetManager
     private readonly string Name;
 
     private readonly string pathRuleset;
-    public Dictionary<RulesetTypes, List<RulesetRule>> rules = new Dictionary<RulesetTypes, List<RulesetRule>>();
     private readonly string ToolsVersion;
+    public Dictionary<RulesetTypes, List<RulesetRule>> rules = new();
 
     public RulesetManager(string pathRuleset)
     {
@@ -95,7 +95,7 @@ public class RulesetManager
 
     public void Save()
     {
-        XmlGenerator xg = new XmlGenerator();
+        var xg = new XmlGenerator();
 
         xg.WriteXmlDeclaration();
 

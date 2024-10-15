@@ -1,6 +1,5 @@
-using SunamoRuleset._sunamo;
-
 namespace SunamoRuleset;
+using SunamoRuleset._sunamo;
 
 public class RulesetRule
 {

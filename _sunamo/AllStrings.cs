@@ -1,4 +1,3 @@
-
 namespace SunamoRuleset._sunamo;
 internal class AllStrings
 {

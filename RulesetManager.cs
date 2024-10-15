@@ -1,7 +1,6 @@
+namespace SunamoRuleset;
 using System.IO;
 using SunamoRuleset._sunamo;
-
-namespace SunamoRuleset;
 
 public class RulesetManager
 {

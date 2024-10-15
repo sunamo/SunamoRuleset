@@ -1,4 +1,3 @@
-
 namespace SunamoRuleset._sunamo;
 using System;
 using System.Collections;

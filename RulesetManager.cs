@@ -58,7 +58,7 @@ public class RulesetManager
 
     private string AttrRules(XElement item, string v)
     {
-        return XHelper.Attr(item, v).Replace(AllStrings.dot, string.Empty);
+        return XHelper.Attr(item, v).Replace(".", string.Empty);
     }
 
     public static RulesetTypes Type(string rule)

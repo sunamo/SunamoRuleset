@@ -12,9 +12,9 @@ internal class XHelper
             var item = item2;
             if (withPrexixedXmlnsColon)
             {
-                if (item == string.Empty || item == Consts.xmlns)
+                if (item == string.Empty || item == "xmlns")
                 {
-                    item = Consts.xmlns;
+                    item = "xmlns";
                 }
                 else
                 {

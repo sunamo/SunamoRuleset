@@ -9,3 +9,5 @@ global using System.Reflection;
 global using System.Net;
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
+global using SunamoRuleset;
+global using SunamoRuleset._sunamo;

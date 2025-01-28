@@ -44,9 +44,4 @@ internal class SHGetLines
         foreach (var item in r) d.Insert(i, item);
     }
 
-    internal static List<string> GetLinesFromLinesWithOneRow(List<string> list)
-    {
-        if (list.Count == 1) return GetLines(list[0]);
-        return list;
-    }
 }

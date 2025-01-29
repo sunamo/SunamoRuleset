@@ -78,11 +78,6 @@ internal partial class ThrowEx
         return ThrowIsNotNull(exc);
     }
 
-    internal static bool ThrowIsNotNull(Func<string, string?> f)
-    {
-        string? exc = f(FullNameOfExecutedCode());
-        return ThrowIsNotNull(exc);
-    }
     #endregion
     #endregion
 }

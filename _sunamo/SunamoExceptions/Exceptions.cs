@@ -64,10 +64,6 @@ bool fillAlsoFirstTwo = true)
     {
         return CheckBefore(before) + message;
     }
-    internal static string? NotImplementedMethod(string before)
-    {
-        return CheckBefore(before) + "Not implemented method.";
-    }
     #endregion
     internal static string? NotImplementedCase(string before, object notImplementedName)
     {

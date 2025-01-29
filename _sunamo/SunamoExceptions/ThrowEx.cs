@@ -12,7 +12,6 @@ internal partial class ThrowEx
 
     internal static bool NotImplementedCase(object notImplementedName)
     { return ThrowIsNotNull(Exceptions.NotImplementedCase, notImplementedName); }
-    internal static bool NotImplementedMethod() { return ThrowIsNotNull(Exceptions.NotImplementedMethod); }
 
     #region Other
     internal static string FullNameOfExecutedCode()

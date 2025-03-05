@@ -1,5 +1,4 @@
 namespace SunamoRuleset._sunamo;
-using System;
 
 internal class EnumHelper
 {

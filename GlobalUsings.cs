@@ -11,7 +11,6 @@ global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
 global using SunamoRuleset;
 global using SunamoRuleset._sunamo;
-
 global using System.IO;
 global using System.Xml;
 global using ILogger = Microsoft.Extensions.Logging.ILogger;

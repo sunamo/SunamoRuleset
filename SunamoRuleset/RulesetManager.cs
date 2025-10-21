@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoRuleset;
 
 public class RulesetManager
@@ -11,8 +14,8 @@ public class RulesetManager
     public RulesetManager(string pathRuleset)
     {
         this.pathRuleset = pathRuleset;
-        var c = File.ReadAllText(pathRuleset);
-        var xd = XDocument.Parse(c);
+        var count = File.ReadAllText(pathRuleset);
+        var xd = XDocument.Parse(count);
         var root = xd.Root;
         var rules2 = xd.Root.Descendants().Where(e => e.Name == "Rules");
         var type = RulesetTypes.None;

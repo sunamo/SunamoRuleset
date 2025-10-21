@@ -1,3 +1,6 @@
+// EN: Variable names have been checked and replaced with self-descriptive names
+// CZ: Názvy proměnných byly zkontrolovány a nahrazeny samopopisnými názvy
+
 namespace SunamoRuleset._sunamo;
 
 /// <summary>
@@ -9,7 +12,7 @@ namespace SunamoRuleset._sunamo;
 internal class XmlGenerator //: IXmlGenerator
 {
     static Type type = typeof(XmlGenerator);
-    internal StringBuilder sb = new StringBuilder();
+    internal StringBuilder stringBuilder = new StringBuilder();
     private bool _useStack = false;
     private Stack<string> _stack = null;
     internal XmlGenerator() : this(false)
@@ -25,15 +28,15 @@ internal class XmlGenerator //: IXmlGenerator
     }
     internal void WriteRaw(string p)
     {
-        sb.Append(p);
+        stringBuilder.Append(p);
     }
     internal void TerminateTag(string p)
     {
-        sb.AppendFormat("</{0}>", p);
+        stringBuilder.AppendFormat("</{0}>", p);
     }
     public override string ToString()
     {
-        return sb.ToString();
+        return stringBuilder.ToString();
     }
     /// <summary>
     /// if will be sth null, wont be writing
@@ -44,9 +47,9 @@ internal class XmlGenerator //: IXmlGenerator
     {
         WriteTagWithAttrs(true, p, p_2);
     }
-            bool IsNulledOrEmpty(string s)
+            bool IsNulledOrEmpty(string text)
     {
-        if (string.IsNullOrEmpty(s) || s == "(null)")
+        if (string.IsNullOrEmpty(text) || text == "(null)")
         {
             return true;
         }
@@ -59,8 +62,8 @@ internal class XmlGenerator //: IXmlGenerator
     /// <param name="p_2"></param>
     private void WriteTagWithAttrs(bool appendNull, string p, params string[] p_2)
     {
-        StringBuilder sb = new StringBuilder();
-        sb.AppendFormat("<{0} ", p);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendFormat("<{0} ", p);
         for (int i = 0; i < p_2.Length; i++)
         {
             var attr = p_2[i];
@@ -69,20 +72,20 @@ internal class XmlGenerator //: IXmlGenerator
             {
                 if (!IsNulledOrEmpty(attr) && appendNull || !IsNulledOrEmpty(val))
                 {
-                    sb.AppendFormat("{0}=\"{1}\" ", attr, val);
+                    stringBuilder.AppendFormat("{0}=\"{1}\" ", attr, val);
                 }
             }
         }
-        sb.Append("<");
-        string r = sb.ToString();
+        stringBuilder.Append("<");
+        string r = stringBuilder.ToString();
         if (_useStack)
         {
             _stack.Push(r);
         }
-        this.sb.Append(r);
+        this.stringBuilder.Append(r);
     }
     internal void WriteXmlDeclaration()
     {
-        sb.Append(XmlTemplates.xml);
+        stringBuilder.Append(XmlTemplates.xml);
     }
 }

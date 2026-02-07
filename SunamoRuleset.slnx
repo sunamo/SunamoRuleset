@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="SunamoRuleset.Tests\\SunamoRuleset.Tests.csproj" />
+  <Project Path="RunnerRuleset\\RunnerRuleset.csproj" />
+  <Project Path="SunamoRuleset\SunamoRuleset.csproj" />
+</Solution>

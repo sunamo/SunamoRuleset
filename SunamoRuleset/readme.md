@@ -1,20 +1,44 @@
-### SunamoRuleset
+# SunamoRuleset
 
-Part of PlatformIndependentNuGetPackages:
+A .NET library for managing Visual Studio `.ruleset` files used by IDE analyzers, FxCop, ReSharper, and SonarQube.
 
-- [nuget.org](https://www.nuget.org/profiles/sunamo)
-- [github.org](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+## Features
 
-Another links:
+- **Parse** existing `.ruleset` XML files into strongly-typed objects
+- **Modify** rule actions programmatically
+- **Save** changes back to `.ruleset` file format
+- **Classify** rules by analyzer type (Microsoft Code Quality, .NET Core Analyzers, C# Code Analysis)
 
-- [Developer site](https://sunamo.cz)
+## Usage
 
-Request for new features / bug report / etc: [Mail](mailto:radek.jancik@sunamo.cz) or on GitHub
+```csharp
+// Load a ruleset file
+var manager = new RulesetManager("path/to/my.ruleset");
+
+// Access rules by analyzer type
+var codeQualityRules = manager.Rules[RulesetTypes.MicrosoftCodeQualityAnalyzers];
+
+// Determine which analyzer owns a rule
+var ruleType = RulesetManager.GetRuleType("CA1000");
+
+// Save modifications
+manager.Save();
+```
+
 ## Target Frameworks
 
-**TargetFrameworks:** `net10.0;net9.0;net8.0`
+`net10.0;net9.0;net8.0`
 
-**Reason:** Code uses C# 12.0 features (collection expressions, primary constructors) or dependencies requiring .NET 8.0+:
-- Collection expressions `[]` syntax requires C# 12.0 (net8.0+)
-- Primary constructors require C# 12.0 (net8.0+) 
-- Entity Framework Core 9.x requires net8.0+
+## Links
+
+- [NuGet](https://www.nuget.org/profiles/sunamo)
+- [GitHub](https://github.com/sunamo/PlatformIndependentNuGetPackages)
+- [Developer Site](https://sunamo.cz)
+
+## Contact
+
+Feature requests / bug reports: [Email](mailto:radek.jancik@sunamo.cz) or via GitHub Issues.
+
+## License
+
+MIT

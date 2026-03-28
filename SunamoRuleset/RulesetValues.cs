@@ -1,13 +1,16 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Contains lists of rule codes for different Microsoft analyzer categories.
+/// </summary>
 public class RulesetValues
 {
-    #region rulesMicrosoftCodeQuality
+    #region RulesMicrosoftCodeQuality
     /// <summary>
-    ///     https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
-    ///     https://docs.google.com/spreadsheets/d/1BeaQ1S41-iMJ5le7oO6V4r9Y9iSg2Du47_XVA37GPPk/edit#gid=0
+    /// List of Microsoft Code Quality Analyzer rule codes.
+    /// See: https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
     /// </summary>
-    public static readonly List<string> rulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
+    public static readonly List<string> RulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
 CA1001
 CA1003
 CA1008
@@ -98,12 +101,12 @@ CA2244
 CA2245
 CA2246");
     #endregion
-    #region rulesMicrosoftNetCoreAnalyzers
+    #region RulesMicrosoftNetCoreAnalyzers
     /// <summary>
-    ///     https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
-    ///     https://docs.google.com/spreadsheets/d/1by2sc_hiYWbJ_2N5v1ZBZHebkIRPCCYFydRu5Zi7bag/edit#gid=0
+    /// List of Microsoft .NET Core Analyzer rule codes.
+    /// See: https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
     /// </summary>
-    public static readonly List<string> rulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
+    public static readonly List<string> RulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
 CA1304
 CA1305
 CA1307

@@ -1,42 +1,44 @@
 namespace SunamoRuleset._sunamo;
 
+/// <summary>
+/// Helper class for dictionary operations with list values.
+/// </summary>
 internal class DictionaryHelper
 {
-    #region AddOrCreate
     /// <summary>
-    ///     A3 is inner type of collection entries
-    ///     dictS => is comparing with string
-    ///     As inner must be List, not IList etc.
-    ///     From outside is not possible as inner use other class based on IList
+    /// Adds a value to a dictionary where values are lists, creating the list if the key does not exist.
+    /// Supports IList keys with sequence equality comparison.
     /// </summary>
-    /// <typeparam name="Key"></typeparam>
-    /// <typeparam name="Value"></typeparam>
-    /// <typeparam name="ColType"></typeparam>
-    /// <param name="sl"></param>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    internal static void AddOrCreate<Key, Value, ColType>(IDictionary<Key, List<Value>> dict, Key key, Value value,
-        bool withoutDuplicitiesInValue = false, Dictionary<Key, List<string>> dictS = null)
+    /// <typeparam name="TKey">The type of the dictionary key.</typeparam>
+    /// <typeparam name="TValue">The type of the values in the list.</typeparam>
+    /// <typeparam name="TCollectionElement">The element type for IList key comparison.</typeparam>
+    /// <param name="dictionary">The dictionary to add to.</param>
+    /// <param name="key">The key under which to add the value.</param>
+    /// <param name="value">The value to add to the list.</param>
+    /// <param name="isSkippingDuplicateValues">If true, skips adding duplicate values to the list.</param>
+    /// <param name="stringDictionary">Optional parallel dictionary for string comparison of values.</param>
+    internal static void AddOrCreate<TKey, TValue, TCollectionElement>(IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value,
+        bool isSkippingDuplicateValues = false, Dictionary<TKey, List<string>>? stringDictionary = null) where TKey : notnull
     {
-        var compWithString = false;
-        if (dictS != null) compWithString = true;
-        if (key is IList && typeof(ColType) != typeof(Object))
+        var isComparingWithString = false;
+        if (stringDictionary != null) isComparingWithString = true;
+        if (key is IList && typeof(TCollectionElement) != typeof(Object))
         {
-            var keyE = key as IList<ColType>;
-            var contains = false;
-            foreach (var item in dict)
+            var keyAsList = key as IList<TCollectionElement>;
+            var isContainingKey = false;
+            foreach (var item in dictionary)
             {
-                var keyD = item.Key as IList<ColType>;
-                if (keyD.SequenceEqual(keyE)) contains = true;
+                var dictionaryKey = item.Key as IList<TCollectionElement>;
+                if (dictionaryKey!.SequenceEqual(keyAsList!)) isContainingKey = true;
             }
-            if (contains)
+            if (isContainingKey)
             {
-                foreach (var item in dict)
+                foreach (var item in dictionary)
                 {
-                    var keyD = item.Key as IList<ColType>;
-                    if (keyD.SequenceEqual(keyE))
+                    var dictionaryKey = item.Key as IList<TCollectionElement>;
+                    if (dictionaryKey!.SequenceEqual(keyAsList!))
                     {
-                        if (withoutDuplicitiesInValue)
+                        if (isSkippingDuplicateValues)
                             if (item.Value.Contains(value))
                                 return;
                         item.Value.Add(value);
@@ -45,76 +47,86 @@ internal class DictionaryHelper
             }
             else
             {
-                List<Value> ad = new();
-                ad.Add(value);
-                dict.Add(key, ad);
-                if (compWithString)
+                List<TValue> valueList = new();
+                valueList.Add(value);
+                dictionary.Add(key, valueList);
+                if (isComparingWithString)
                 {
-                    List<string> ad2 = new();
-                    ad2.Add(value.ToString());
-                    dictS.Add(key, ad2);
+                    List<string> stringValueList = new();
+                    stringValueList.Add(value!.ToString()!);
+                    stringDictionary!.Add(key, stringValueList);
                 }
             }
         }
         else
         {
-            var add = true;
-            lock (dict)
+            var shouldAdd = true;
+            lock (dictionary)
             {
-                if (dict.ContainsKey(key))
+                if (dictionary.ContainsKey(key))
                 {
-                    if (withoutDuplicitiesInValue)
+                    if (isSkippingDuplicateValues)
                     {
-                        if (dict[key].Contains(value))
-                            add = false;
-                        else if (compWithString)
-                            if (dictS[key].Contains(value.ToString()))
-                                add = false;
+                        if (dictionary[key].Contains(value))
+                            shouldAdd = false;
+                        else if (isComparingWithString)
+                            if (stringDictionary![key].Contains(value!.ToString()!))
+                                shouldAdd = false;
                     }
-                    if (add)
+                    if (shouldAdd)
                     {
-                        var val = dict[key];
-                        if (val != null) val.Add(value);
-                        if (compWithString)
+                        var existingValues = dictionary[key];
+                        if (existingValues != null) existingValues.Add(value);
+                        if (isComparingWithString)
                         {
-                            var val2 = dictS[key];
-                            if (val != null) val2.Add(value.ToString());
+                            var existingStringValues = stringDictionary![key];
+                            if (existingValues != null) existingStringValues.Add(value!.ToString()!);
                         }
                     }
                 }
                 else
                 {
-                    if (!dict.ContainsKey(key))
+                    if (!dictionary.ContainsKey(key))
                     {
-                        List<Value> ad = new();
-                        ad.Add(value);
-                        dict.Add(key, ad);
+                        List<TValue> valueList = new();
+                        valueList.Add(value);
+                        dictionary.Add(key, valueList);
                     }
                     else
                     {
-                        dict[key].Add(value);
+                        dictionary[key].Add(value);
                     }
-                    if (compWithString)
+                    if (isComparingWithString)
                     {
-                        if (!dictS.ContainsKey(key))
+                        if (!stringDictionary!.ContainsKey(key))
                         {
-                            List<string> ad2 = new();
-                            ad2.Add(value.ToString());
-                            dictS.Add(key, ad2);
+                            List<string> stringValueList = new();
+                            stringValueList.Add(value!.ToString()!);
+                            stringDictionary.Add(key, stringValueList);
                         }
                         else
                         {
-                            dictS[key].Add(value.ToString());
+                            stringDictionary[key].Add(value!.ToString()!);
                         }
                     }
                 }
             }
         }
     }
-    internal static void AddOrCreate<Key, Value>(IDictionary<Key, List<Value>> sl, Key key, Value value,
-        bool withoutDuplicitiesInValue = false, Dictionary<Key, List<string>> dictS = null)
+
+    /// <summary>
+    /// Adds a value to a dictionary where values are lists, creating the list if the key does not exist.
+    /// </summary>
+    /// <typeparam name="TKey">The type of the dictionary key.</typeparam>
+    /// <typeparam name="TValue">The type of the values in the list.</typeparam>
+    /// <param name="dictionary">The dictionary to add to.</param>
+    /// <param name="key">The key under which to add the value.</param>
+    /// <param name="value">The value to add to the list.</param>
+    /// <param name="isSkippingDuplicateValues">If true, skips adding duplicate values to the list.</param>
+    /// <param name="stringDictionary">Optional parallel dictionary for string comparison of values.</param>
+    internal static void AddOrCreate<TKey, TValue>(IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value,
+        bool isSkippingDuplicateValues = false, Dictionary<TKey, List<string>>? stringDictionary = null) where TKey : notnull
     {
-        AddOrCreate<Key, Value, object>(sl, key, value, withoutDuplicitiesInValue, dictS);
+        AddOrCreate<TKey, TValue, object>(dictionary, key, value, isSkippingDuplicateValues, stringDictionary);
     }
-    #endregion
 }

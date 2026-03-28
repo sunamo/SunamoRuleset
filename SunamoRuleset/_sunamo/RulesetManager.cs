@@ -1,50 +1,72 @@
 namespace SunamoRuleset._sunamo;
 
 /// <summary>
-/// Našel jsem ještě třídu DotXml ale ta umožňuje vytvářet jen dokumenty ke bude root ThisApp.Name
-/// A nebo moje vlastní XML třídy, ale ty umí vytvářet jen třídy bez rozsáhlejšího xml vnoření.
-/// Element - prvek kterému se zapisují ihned i innerObsah. Může být i prázdný.
-/// Tag - prvek kterému to mohu zapsat později nebo vůbec.
+/// Generates XML content using a StringBuilder with support for tags, attributes, and optional stack tracking.
 /// </summary>
-internal class XmlGenerator //: IXmlGenerator
+internal class XmlGenerator
 {
-    static Type type = typeof(XmlGenerator);
-    internal StringBuilder stringBuilder = new StringBuilder();
-    private bool _useStack = false;
-    private Stack<string> _stack = null;
+    internal StringBuilder ContentBuilder { get; set; } = new StringBuilder();
+    private bool useStack = false;
+    private Stack<string>? stack = null;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="XmlGenerator"/> class without stack tracking.
+    /// </summary>
     internal XmlGenerator() : this(false)
     {
     }
-    internal XmlGenerator(bool useStack)
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="XmlGenerator"/> class.
+    /// </summary>
+    /// <param name="isUsingStack">If true, enables stack tracking for written tags.</param>
+    internal XmlGenerator(bool isUsingStack)
     {
-        _useStack = useStack;
-        if (useStack)
+        useStack = isUsingStack;
+        if (isUsingStack)
         {
-            _stack = new Stack<string>();
+            stack = new Stack<string>();
         }
     }
-    internal void WriteRaw(string p)
+
+    /// <summary>
+    /// Writes raw XML content directly to the output.
+    /// </summary>
+    /// <param name="text">The raw XML text to append.</param>
+    internal void WriteRaw(string text)
     {
-        stringBuilder.Append(p);
+        ContentBuilder.Append(text);
     }
-    internal void TerminateTag(string p)
+
+    /// <summary>
+    /// Writes a closing tag for the specified element.
+    /// </summary>
+    /// <param name="tagName">The name of the tag to terminate.</param>
+    internal void TerminateTag(string tagName)
     {
-        stringBuilder.AppendFormat("</{0}>", p);
+        ContentBuilder.AppendFormat("</{0}>", tagName);
     }
+
+    /// <summary>
+    /// Returns the generated XML content as a string.
+    /// </summary>
+    /// <returns>The complete XML content.</returns>
     public override string ToString()
     {
-        return stringBuilder.ToString();
+        return ContentBuilder.ToString();
     }
+
     /// <summary>
-    /// if will be sth null, wont be writing
+    /// Writes an opening tag with the specified attributes. Null attributes are included.
     /// </summary>
-    /// <param name="p"></param>
-    /// <param name="p_2"></param>
-    internal void WriteTagWithAttrs(string p, params string[] p_2)
+    /// <param name="tagName">The name of the XML tag.</param>
+    /// <param name="attributes">Alternating attribute name/value pairs.</param>
+    internal void WriteTagWithAttrs(string tagName, params string[] attributes)
     {
-        WriteTagWithAttrs(true, p, p_2);
+        WriteTagWithAttrs(true, tagName, attributes);
     }
-            bool IsNulledOrEmpty(string text)
+
+    private bool IsNulledOrEmpty(string text)
     {
         if (string.IsNullOrEmpty(text) || text == "(null)")
         {
@@ -52,37 +74,37 @@ internal class XmlGenerator //: IXmlGenerator
         }
         return false;
     }
-    /// <summary>
-    /// if will be sth null, wont be writing
-    /// </summary>
-    /// <param name="p"></param>
-    /// <param name="p_2"></param>
-    private void WriteTagWithAttrs(bool appendNull, string p, params string[] p_2)
+
+    private void WriteTagWithAttrs(bool isAppendingNull, string tagName, params string[] attributes)
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendFormat("<{0} ", p);
-        for (int i = 0; i < p_2.Length; i++)
+        StringBuilder tagBuilder = new StringBuilder();
+        tagBuilder.AppendFormat("<{0} ", tagName);
+        for (int i = 0; i < attributes.Length; i++)
         {
-            var attr = p_2[i];
-            var val = p_2[++i];
-            if (string.IsNullOrEmpty(val) && appendNull || !string.IsNullOrEmpty(val))
+            var attributeName = attributes[i];
+            var attributeValue = attributes[++i];
+            if (string.IsNullOrEmpty(attributeValue) && isAppendingNull || !string.IsNullOrEmpty(attributeValue))
             {
-                if (!IsNulledOrEmpty(attr) && appendNull || !IsNulledOrEmpty(val))
+                if (!IsNulledOrEmpty(attributeName) && isAppendingNull || !IsNulledOrEmpty(attributeValue))
                 {
-                    stringBuilder.AppendFormat("{0}=\"{1}\" ", attr, val);
+                    tagBuilder.AppendFormat("{0}=\"{1}\" ", attributeName, attributeValue);
                 }
             }
         }
-        stringBuilder.Append("<");
-        string r = stringBuilder.ToString();
-        if (_useStack)
+        tagBuilder.Append('<');
+        string result = tagBuilder.ToString();
+        if (useStack)
         {
-            _stack.Push(r);
+            stack!.Push(result);
         }
-        this.stringBuilder.Append(r);
+        ContentBuilder.Append(result);
     }
+
+    /// <summary>
+    /// Writes the standard XML declaration header.
+    /// </summary>
     internal void WriteXmlDeclaration()
     {
-        stringBuilder.Append(XmlTemplates.xml);
+        ContentBuilder.Append(XmlTemplates.Xml);
     }
 }

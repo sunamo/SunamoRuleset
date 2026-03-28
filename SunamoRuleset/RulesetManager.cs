@@ -1,63 +1,88 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Manages loading, parsing, and saving of Visual Studio ruleset files.
+/// Supports Microsoft Code Quality, .NET Core, and C# Code Analysis rule types.
+/// </summary>
 public class RulesetManager
 {
-    private static Type type = typeof(RulesetManager);
-    private readonly string Description;
-    private readonly string Name;
-    private readonly string pathRuleset;
-    private readonly string ToolsVersion;
-    public Dictionary<RulesetTypes, List<RulesetRule>> rules = new();
-    public RulesetManager(string pathRuleset)
+    private readonly string description;
+    private readonly string name;
+    private readonly string rulesetPath;
+    private readonly string toolsVersion;
+
+    /// <summary>
+    /// Dictionary of parsed rules grouped by their analyzer type.
+    /// </summary>
+    public Dictionary<RulesetTypes, List<RulesetRule>> Rules { get; set; } = new();
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RulesetManager"/> class by parsing a ruleset file.
+    /// </summary>
+    /// <param name="rulesetPath">The full path to the .ruleset file to parse.</param>
+    public RulesetManager(string rulesetPath)
     {
-        this.pathRuleset = pathRuleset;
-        var count = File.ReadAllText(pathRuleset);
-        var xd = XDocument.Parse(count);
-        var root = xd.Root;
-        var rules2 = xd.Root.Descendants().Where(e => e.Name == "Rules");
-        var type = RulesetTypes.None;
-        Name = XHelper.Attr(root, "Name");
-        Description = XHelper.Attr(root, "Description");
-        ToolsVersion = XHelper.Attr(root, "ToolsVersion");
-        var cantBeAdded = new List<string>();
-        foreach (var item in rules2)
+        this.rulesetPath = rulesetPath;
+        var content = File.ReadAllText(rulesetPath);
+        var document = XDocument.Parse(content);
+        var root = document.Root!;
+        var rulesElements = root.Descendants().Where(element => element.Name == "Rules");
+        var rulesetType = RulesetTypes.None;
+        name = XHelper.Attr(root, "Name") ?? string.Empty;
+        description = XHelper.Attr(root, "Description") ?? string.Empty;
+        toolsVersion = XHelper.Attr(root, "ToolsVersion") ?? string.Empty;
+        var unrecognizedRules = new List<string>();
+        foreach (var rulesElement in rulesElements)
         {
-            var analyzerId = AttrRules(item, "AnalyzerId");
-            type = EnumHelper.Parse(analyzerId, RulesetTypes.None);
-            if (type == RulesetTypes.None)
+            var analyzerId = AttrRules(rulesElement, "AnalyzerId");
+            rulesetType = EnumHelper.Parse(analyzerId, RulesetTypes.None);
+            if (rulesetType == RulesetTypes.None)
             {
-                var ruleNamespace = AttrRules(item, "RuleNamespace");
-                type = EnumHelper.Parse(ruleNamespace, RulesetTypes.None);
+                var ruleNamespace = AttrRules(rulesElement, "RuleNamespace");
+                rulesetType = EnumHelper.Parse(ruleNamespace, RulesetTypes.None);
             }
-            if (type == RulesetTypes.None)
+            if (rulesetType == RulesetTypes.None)
             {
-                cantBeAdded.Add(item.ToString());
+                unrecognizedRules.Add(rulesElement.ToString());
                 continue;
             }
-            var rules3 = item.Descendants().Where(d => d.Name == "Rule");
-            foreach (var item2 in rules3)
+            var ruleElements = rulesElement.Descendants().Where(element => element.Name == "Rule");
+            foreach (var ruleElement in ruleElements)
             {
                 var rulesetRule = new RulesetRule();
-                rulesetRule.Parse(item2);
-                DictionaryHelper.AddOrCreate(rules, type, rulesetRule);
+                rulesetRule.Parse(ruleElement);
+                DictionaryHelper.AddOrCreate(Rules, rulesetType, rulesetRule);
             }
         }
     }
-    private string AttrRules(XElement item, string v)
+
+    private string AttrRules(XElement element, string attributeName)
     {
-        return XHelper.Attr(item, v).Replace(".", string.Empty);
+        return (XHelper.Attr(element, attributeName) ?? string.Empty).Replace(".", string.Empty);
     }
-    public static RulesetTypes Type(string rule)
+
+    /// <summary>
+    /// Determines the analyzer type for a given rule code based on its prefix or known rule lists.
+    /// </summary>
+    /// <param name="rule">The rule code (e.g., "CS0168", "CA1000").</param>
+    /// <returns>The <see cref="RulesetTypes"/> corresponding to the rule code.</returns>
+    public static RulesetTypes GetRuleType(string rule)
     {
         if (rule.StartsWith("CS")) return RulesetTypes.MicrosoftCodeAnalysisCSharp;
-        if (RulesetValues.rulesMicrosoftNetCoreAnalyzers.Contains(rule))
+        if (RulesetValues.RulesMicrosoftNetCoreAnalyzers.Contains(rule))
             return RulesetTypes.MicrosoftNetCoreAnalyzers;
-        if (RulesetValues.rulesMicrosoftCodeQuality.Contains(rule)) return RulesetTypes.MicrosoftCodeQualityAnalyzers;
+        if (RulesetValues.RulesMicrosoftCodeQuality.Contains(rule)) return RulesetTypes.MicrosoftCodeQualityAnalyzers;
         return RulesetTypes.None;
     }
-    public string ConvertToDotSyntax(RulesetTypes rtype)
+
+    /// <summary>
+    /// Converts a <see cref="RulesetTypes"/> enum value to its dot-separated analyzer namespace string.
+    /// </summary>
+    /// <param name="rulesetType">The ruleset type to convert.</param>
+    /// <returns>The dot-separated namespace string, or null for <see cref="RulesetTypes.None"/>.</returns>
+    public string? ConvertToDotSyntax(RulesetTypes rulesetType)
     {
-        switch (rtype)
+        switch (rulesetType)
         {
             case RulesetTypes.MicrosoftCodeQualityAnalyzers:
                 return "Microsoft.CodeQuality.Analyzers";
@@ -66,29 +91,32 @@ public class RulesetManager
             case RulesetTypes.MicrosoftCodeAnalysisCSharp:
                 return "Microsoft.CodeAnalysis.CSharp";
             case RulesetTypes.None:
-                // Is calling only in save, return null
                 return null;
             default:
-                ThrowEx.NotImplementedCase(rtype);
+                ThrowEx.NotImplementedCase(rulesetType);
                 break;
         }
         return null;
     }
+
+    /// <summary>
+    /// Saves the current ruleset configuration back to the file it was loaded from.
+    /// </summary>
     public void Save()
     {
-        var xg = new XmlGenerator();
-        xg.WriteXmlDeclaration();
-        xg.WriteTagWithAttrs(RulesetConsts.RuleSet, RulesetConsts.Name, Name, RulesetConsts.Description, Description,
-            RulesetConsts.ToolsVersion, ToolsVersion);
-        foreach (var item in rules)
+        var xmlGenerator = new XmlGenerator();
+        xmlGenerator.WriteXmlDeclaration();
+        xmlGenerator.WriteTagWithAttrs(RulesetConsts.RuleSet, RulesetConsts.Name, name, RulesetConsts.Description, description,
+            RulesetConsts.ToolsVersion, toolsVersion);
+        foreach (var item in Rules)
         {
             var dotSyntax = ConvertToDotSyntax(item.Key);
-            xg.WriteTagWithAttrs(RulesetConsts.Rules, RulesetConsts.AnalyzerId, dotSyntax, RulesetConsts.RuleNamespace,
-                dotSyntax);
-            foreach (var rule in item.Value) xg.WriteRaw(rule.ToXml());
-            xg.TerminateTag(RulesetConsts.Rules);
+            xmlGenerator.WriteTagWithAttrs(RulesetConsts.Rules, RulesetConsts.AnalyzerId, dotSyntax!, RulesetConsts.RuleNamespace,
+                dotSyntax!);
+            foreach (var rule in item.Value) xmlGenerator.WriteRaw(rule.ToXml());
+            xmlGenerator.TerminateTag(RulesetConsts.Rules);
         }
-        xg.TerminateTag(RulesetConsts.RuleSet);
-        File.WriteAllText(pathRuleset, xg.ToString());
+        xmlGenerator.TerminateTag(RulesetConsts.RuleSet);
+        File.WriteAllText(rulesetPath, xmlGenerator.ToString());
     }
 }

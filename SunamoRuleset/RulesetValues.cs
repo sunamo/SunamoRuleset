@@ -1,8 +1,15 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Contains lists of rule codes for different Microsoft analyzer categories.
+/// </summary>
 public class RulesetValues
 {
     #region RulesMicrosoftCodeQuality
+    /// <summary>
+    /// List of Microsoft Code Quality Analyzer rule codes.
+    /// See: https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.NetCore.Analyzers/Microsoft.NetCore.Analyzers.md
+    /// </summary>
     public static readonly List<string> RulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
 CA1001
 CA1003
@@ -95,6 +102,10 @@ CA2245
 CA2246");
     #endregion
     #region RulesMicrosoftNetCoreAnalyzers
+    /// <summary>
+    /// List of Microsoft .NET Core Analyzer rule codes.
+    /// See: https://github.com/dotnet/roslyn-analyzers/blob/master/src/Microsoft.CodeQuality.Analyzers/Microsoft.CodeQuality.Analyzers.md
+    /// </summary>
     public static readonly List<string> RulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
 CA1304
 CA1305

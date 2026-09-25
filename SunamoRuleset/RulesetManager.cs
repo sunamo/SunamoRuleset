@@ -1,5 +1,9 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Manages loading, parsing, and saving of Visual Studio ruleset files.
+/// Supports Microsoft Code Quality, .NET Core, and C# Code Analysis rule types.
+/// </summary>
 public class RulesetManager
 {
     private readonly string description;
@@ -7,8 +11,15 @@ public class RulesetManager
     private readonly string rulesetPath;
     private readonly string toolsVersion;
 
+    /// <summary>
+    /// Dictionary of parsed rules grouped by their analyzer type.
+    /// </summary>
     public Dictionary<RulesetTypes, List<RulesetRule>> Rules { get; set; } = new();
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RulesetManager"/> class by parsing a ruleset file.
+    /// </summary>
+    /// <param name="rulesetPath">The full path to the .ruleset file to parse.</param>
     public RulesetManager(string rulesetPath)
     {
         this.rulesetPath = rulesetPath;
@@ -48,6 +59,11 @@ public class RulesetManager
     private string AttrRules(XElement element, string attributeName)
         => (XHelper.Attr(element, attributeName) ?? string.Empty).Replace(".", string.Empty);
 
+    /// <summary>
+    /// Determines the analyzer type for a given rule code based on its prefix or known rule lists.
+    /// </summary>
+    /// <param name="rule">The rule code (e.g., "CS0168", "CA1000").</param>
+    /// <returns>The <see cref="RulesetTypes"/> corresponding to the rule code.</returns>
     public static RulesetTypes GetRuleType(string rule)
     {
         if (rule.StartsWith("CS")) return RulesetTypes.MicrosoftCodeAnalysisCSharp;
@@ -57,6 +73,11 @@ public class RulesetManager
         return RulesetTypes.None;
     }
 
+    /// <summary>
+    /// Converts a <see cref="RulesetTypes"/> enum value to its dot-separated analyzer namespace string.
+    /// </summary>
+    /// <param name="rulesetType">The ruleset type to convert.</param>
+    /// <returns>The dot-separated namespace string, or null for <see cref="RulesetTypes.None"/>.</returns>
     public string? ConvertToDotSyntax(RulesetTypes rulesetType)
     {
         switch (rulesetType)
@@ -76,6 +97,9 @@ public class RulesetManager
         return null;
     }
 
+    /// <summary>
+    /// Saves the current ruleset configuration back to the file it was loaded from.
+    /// </summary>
     public void Save()
     {
         var xmlGenerator = new XmlGenerator();

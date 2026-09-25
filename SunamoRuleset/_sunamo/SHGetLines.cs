@@ -1,7 +1,15 @@
 namespace SunamoRuleset._sunamo;
 
+/// <summary>
+/// Helper class for splitting text into lines using various newline formats.
+/// </summary>
 internal class SHGetLines
 {
+    /// <summary>
+    /// Splits text into lines handling all newline formats (CRLF, LFCR, CR, LF).
+    /// </summary>
+    /// <param name="text">The text to split into lines.</param>
+    /// <returns>A list of lines from the text.</returns>
     internal static List<string> GetLines(string text)
     {
         var parts = text.Split(new[] { "\r\n", "\n\r" }, StringSplitOptions.None).ToList();

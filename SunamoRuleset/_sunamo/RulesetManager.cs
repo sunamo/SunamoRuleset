@@ -52,9 +52,7 @@ internal class XmlGenerator
     /// </summary>
     /// <returns>The complete XML content.</returns>
     public override string ToString()
-    {
-        return ContentBuilder.ToString();
-    }
+        => ContentBuilder.ToString();
 
     /// <summary>
     /// Writes an opening tag with the specified attributes. Null attributes are included.
@@ -67,13 +65,7 @@ internal class XmlGenerator
     }
 
     private bool IsNulledOrEmpty(string text)
-    {
-        if (string.IsNullOrEmpty(text) || text == "(null)")
-        {
-            return true;
-        }
-        return false;
-    }
+        => string.IsNullOrEmpty(text) || text == "(null)";
 
     private void WriteTagWithAttrs(bool isAppendingNull, string tagName, params string[] attributes)
     {

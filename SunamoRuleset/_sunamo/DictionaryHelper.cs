@@ -20,8 +20,7 @@ internal class DictionaryHelper
     internal static void AddOrCreate<TKey, TValue, TCollectionElement>(IDictionary<TKey, List<TValue>> dictionary, TKey key, TValue value,
         bool isSkippingDuplicateValues = false, Dictionary<TKey, List<string>>? stringDictionary = null) where TKey : notnull
     {
-        var isComparingWithString = false;
-        if (stringDictionary != null) isComparingWithString = true;
+        var isComparingWithString = stringDictionary != null;
         if (key is IList && typeof(TCollectionElement) != typeof(Object))
         {
             var keyAsList = key as IList<TCollectionElement>;

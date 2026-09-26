@@ -30,7 +30,5 @@ public class RulesetRule
     /// </summary>
     /// <returns>An XML string representing this rule.</returns>
     public string ToXml()
-    {
-        return "<Rule Id=\"" + Id + "\" Action=\"" + Action + "\" />";
-    }
+        => $"<Rule Id=\"{Id}\" Action=\"{Action}\" />";
 }

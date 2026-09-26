@@ -14,10 +14,6 @@ internal class XHelper
     internal static string? Attr(XElement element, string attributeName)
     {
         XAttribute? attribute = element.Attribute(XName.Get(attributeName));
-        if (attribute != null)
-        {
-            return attribute.Value;
-        }
-        return null;
+        return attribute?.Value;
     }
 }

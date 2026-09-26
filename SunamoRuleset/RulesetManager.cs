@@ -57,9 +57,7 @@ public class RulesetManager
     }
 
     private string AttrRules(XElement element, string attributeName)
-    {
-        return (XHelper.Attr(element, attributeName) ?? string.Empty).Replace(".", string.Empty);
-    }
+        => (XHelper.Attr(element, attributeName) ?? string.Empty).Replace(".", string.Empty);
 
     /// <summary>
     /// Determines the analyzer type for a given rule code based on its prefix or known rule lists.

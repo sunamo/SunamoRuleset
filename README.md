@@ -1,5 +1,10 @@
 # SunamoRuleset
 
+## Short description
+
+Knihovna pro správu souborů *.ruleset používaných v IDE, FxCop, ReSharperu a SonarQube. Obsahuje Runner a testy.
+
+
 Managing *.ruleset files which use some IDE, FxCop, ReSharper and SonarQube
 
 ## Overview

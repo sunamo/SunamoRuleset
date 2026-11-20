@@ -1,8 +1,14 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Represents the ruleset values type.
+/// </summary>
 public class RulesetValues
 {
     #region RulesMicrosoftCodeQuality
+    /// <summary>
+    /// The rules microsoft code quality.
+    /// </summary>
     public static readonly List<string> RulesMicrosoftCodeQuality = SHGetLines.GetLines(@"CA1000
 CA1001
 CA1003
@@ -95,6 +101,9 @@ CA2245
 CA2246");
     #endregion
     #region RulesMicrosoftNetCoreAnalyzers
+    /// <summary>
+    /// The rules microsoft net core analyzers.
+    /// </summary>
     public static readonly List<string> RulesMicrosoftNetCoreAnalyzers = SHGetLines.GetLines(@"CA1303
 CA1304
 CA1305

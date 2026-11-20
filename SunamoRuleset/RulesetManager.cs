@@ -1,5 +1,8 @@
 namespace SunamoRuleset;
 
+/// <summary>
+/// Represents the ruleset manager type.
+/// </summary>
 public class RulesetManager
 {
     private readonly string description;
@@ -7,8 +10,15 @@ public class RulesetManager
     private readonly string rulesetPath;
     private readonly string toolsVersion;
 
+    /// <summary>
+    /// Gets or sets the rules.
+    /// </summary>
     public Dictionary<RulesetTypes, List<RulesetRule>> Rules { get; set; } = new();
 
+    /// <summary>
+    /// Ruleset manager.
+    /// </summary>
+    /// <returns>The ruleset manager result.</returns>
     public RulesetManager(string rulesetPath)
     {
         this.rulesetPath = rulesetPath;
@@ -48,6 +58,12 @@ public class RulesetManager
     private string AttrRules(XElement element, string attributeName)
         => (XHelper.Attr(element, attributeName) ?? string.Empty).Replace(".", string.Empty);
 
+    /// <summary>
+    /// Get rule type.
+    /// </summary>
+    /// <param name="element">The element.</param>
+    /// <param name="attributeName">The attribute name.</param>
+    /// <returns>The get rule type result.</returns>
     public static RulesetTypes GetRuleType(string rule)
     {
         if (rule.StartsWith("CS")) return RulesetTypes.MicrosoftCodeAnalysisCSharp;
@@ -57,6 +73,11 @@ public class RulesetManager
         return RulesetTypes.None;
     }
 
+    /// <summary>
+    /// Convert to dot syntax.
+    /// </summary>
+    /// <param name="rulesetType">The ruleset type.</param>
+    /// <returns>The convert to dot syntax result.</returns>
     public string? ConvertToDotSyntax(RulesetTypes rulesetType)
     {
         switch (rulesetType)
@@ -76,6 +97,10 @@ public class RulesetManager
         return null;
     }
 
+    /// <summary>
+    /// Save.
+    /// </summary>
+    /// <returns>The save result.</returns>
     public void Save()
     {
         var xmlGenerator = new XmlGenerator();
